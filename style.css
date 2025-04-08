@@ -1,9 +1,10 @@
 /* Base styles */
 :root {
-    --nav-bg-color: rgba(0, 0, 0, 0.3);
-    --dropdown-bg-color: rgba(255, 255, 255, 0.9);
-    --text-color: #ffffff;
-    --hover-opacity: 0.8;
+    --nav-bg-color: rgba(255, 255, 255, 0.95);
+    --text-color: #1a1a1a;
+    --hover-color: #666;
+    --transition-speed: 0.3s;
+    --spacing-unit: 2rem;
 }
 
 * {
@@ -17,6 +18,7 @@ body, html {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     color: var(--text-color);
     overflow: hidden;
+    letter-spacing: 0.02em;
 }
 
 /* Background slider */
@@ -30,7 +32,7 @@ body, html {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out;
+    transition: background-image 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Header and Navigation */
@@ -39,10 +41,15 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 4rem;
-    background-color: var(--nav-bg-color);
-    backdrop-filter: blur(5px);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    background-color: transparent;
+    transition: background-color var(--transition-speed);
     z-index: 10;
+}
+
+header:hover {
+    background-color: var(--nav-bg-color);
+    backdrop-filter: blur(10px);
 }
 
 nav {
@@ -54,35 +61,42 @@ nav {
 }
 
 .logo a {
-    color: var(--text-color);
+    color: white;
     text-decoration: none;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    transition: opacity 0.3s ease;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    transition: all var(--transition-speed);
+    text-transform: uppercase;
 }
 
-.logo a:hover {
-    opacity: var(--hover-opacity);
+header:hover .logo a {
+    color: var(--text-color);
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: calc(var(--spacing-unit) * 1.5);
 }
 
 .nav-links a {
-    color: var(--text-color);
+    color: white;
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: opacity 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: all var(--transition-speed);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+header:hover .nav-links a {
+    color: var(--text-color);
 }
 
 .nav-links a:hover {
-    opacity: var(--hover-opacity);
+    color: var(--hover-color);
 }
 
 /* Dropdown Menu */
@@ -94,21 +108,22 @@ nav {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
-    background-color: var(--dropdown-bg-color);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: var(--nav-bg-color);
     min-width: 220px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
     border-radius: 4px;
     overflow: hidden;
-    transform: translateY(10px);
     opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: all var(--transition-speed);
+    backdrop-filter: blur(10px);
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-    transform: translateY(0);
     opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 .dropdown-content li {
@@ -116,40 +131,41 @@ nav {
 }
 
 .dropdown-content a {
-    color: #333;
+    color: var(--text-color) !important;
     padding: 1rem 1.5rem;
     display: block;
-    transition: background-color 0.3s ease;
+    font-size: 0.85rem;
+    transition: background-color var(--transition-speed);
 }
 
 .dropdown-content a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 /* Social Icons */
 .social-icon {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 0.5rem;
+    opacity: 0.9;
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
     header {
-        padding: 1rem 2rem;
+        padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit);
     }
 
     .logo a {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .nav-links {
-        gap: 1rem;
+        gap: var(--spacing-unit);
     }
 }
 
 @media (max-width: 480px) {
     .nav-links {
-        display: none; /* Consider adding a mobile menu */
+        display: none;
     }
 } 
