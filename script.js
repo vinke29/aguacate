@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("background-slider"),t=["images/background1.jpg","images/background2.jpg"],n=1e4;let a=0;function d(){e.style.backgroundImage=`url("${t[a]}")`,a=(a+1)%t.length}d(),setInterval(d,n)});
